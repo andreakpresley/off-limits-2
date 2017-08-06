@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CardPage } from '../card/card';
+import { ReadyPage } from '../ready/ready';
 
 @Component({
   selector: 'page-home',
@@ -12,8 +12,8 @@ export class HomePage {
 
   }
 
-  private openCardPage() {
-    this.navCtrl.setRoot(CardPage);
+  private openReadyPage() {
+    this.navCtrl.setRoot(ReadyPage);
   }
 
   private openSettingsPage() {
