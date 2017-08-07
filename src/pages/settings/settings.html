@@ -12,6 +12,14 @@
       Change Game Settings
     </ion-list-header>
     <ion-item>
+      <ion-label>Team 1 Name</ion-label>
+      <ion-input [(ngModel)]="team1Name" (change)="team1NameChanged()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Team 2 Name</ion-label>
+      <ion-input [(ngModel)]="team2Name" (change)="team2NameChanged()"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>Timer Length (seconds)</ion-label>
       <ion-input type="number" min="30" max="180"></ion-input>
     </ion-item>
