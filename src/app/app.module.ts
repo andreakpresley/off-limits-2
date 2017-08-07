@@ -10,6 +10,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { CardPage } from '../pages/card/card';
 import { ReadyPage } from '../pages/ready/ready';
 
+import { PlayGameService } from '../services/playGame.service';
+import { GlobalVarsService } from '../services/globalVars.service';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -40,6 +43,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    [PlayGameService],
+    [GlobalVarsService],
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

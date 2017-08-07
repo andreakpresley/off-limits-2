@@ -7,7 +7,24 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Timer here</h2>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          {{seconds}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          Team 1 Score: {{team1score}}
+        </ion-row>
+        <ion-row>
+          Team 2 Score: {{team2score}}
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-card>
     <ion-item class="cardHeader">
       <h2>Word To Guess</h2>
