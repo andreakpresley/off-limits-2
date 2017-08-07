@@ -13,6 +13,7 @@ export class HomePage {
   }
 
   private openReadyPage() {
+    //need to clear global score vars
     this.navCtrl.setRoot(ReadyPage);
   }
 
