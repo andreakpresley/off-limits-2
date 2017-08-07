@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReadyPage } from '../ready/ready';
 import { NavController } from 'ionic-angular';
 import { GlobalVarsService } from '../../services/globalVars.service';
 
@@ -8,22 +9,27 @@ import { GlobalVarsService } from '../../services/globalVars.service';
 })
 export class CardPage {
 
-  private defaultTimer: number = 120;
+  private defaultTimer: number = 10;
   private seconds: number = this.defaultTimer;
   private timer;
   private team1score: number;
   private team2score: number;
+  private team3score: number;
+  private team1Text: string;
+  private team2Text: string;
+  private currentTeam;
 
   constructor(public navCtrl: NavController, private globalVarsService: GlobalVarsService) {
     this.startRound();
     this.team1score = globalVarsService.getTeam1Score();
     this.team2score = globalVarsService.getTeam2Score();
+    this.team1Text = globalVarsService.getTeam1Text();
+    this.team2Text = globalVarsService.getTeam2Text();
+    this.currentTeam = globalVarsService.getCurrentTeam();
   }
 
   public startRound() {
-    console.log('starting game');
     this.startTimer();
-
   }
 
   private startTimer() {
@@ -36,12 +42,45 @@ export class CardPage {
     if(this.seconds > 0) {
       this.timer = setTimeout(() => this.countdownTimer(), 1000);
     } else {
-      console.log('timer over');
+      this.timeOver();
     }
+  }
+
+  //Change the current team and then open the Ready page
+  private timeOver() {
+    if(this.currentTeam === 0) {
+      this.globalVarsService.setCurrentTeam(1);
+    } else {
+      this.globalVarsService.setCurrentTeam(0);
+    }
+    this.navCtrl.setRoot(ReadyPage);
   }
 
   public getSeconds() {
     return this.seconds;
+  }
+
+  private skipOrTaboo() {
+    if(this.currentTeam === 0) {
+      this.globalVarsService.setTeam1Score(this.globalVarsService.getTeam1Score() - 1);
+      this.team1score = this.globalVarsService.getTeam1Score();
+    } else {
+      this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() - 1);
+      this.team2score = this.globalVarsService.getTeam2Score();
+    }
+
+    //change words on card
+  }
+
+  private correct() {
+    if(this.currentTeam === 0) {
+      this.globalVarsService.setTeam1Score(this.globalVarsService.getTeam1Score() + 1);
+      this.team1score = this.globalVarsService.getTeam1Score();
+    } else {
+      this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() + 1);
+      this.team2score = this.globalVarsService.getTeam2Score();
+    }
+    //change words on card
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CardPage } from '../card/card';
-import { PlayGameService } from '../../services/playGame.service';
+import { GlobalVarsService } from '../../services/globalVars.service';
 
 @Component({
   selector: 'page-ready',
@@ -9,21 +9,14 @@ import { PlayGameService } from '../../services/playGame.service';
 })
 export class ReadyPage {
 
-  constructor(public navCtrl: NavController, private playGameService: PlayGameService) {
-  }
+  private teamName;
 
-  private openCardPage() {
-    // this.playGameService.playGame();
-    this.navCtrl.setRoot(CardPage);
+  constructor(public navCtrl: NavController, private globalVarsService: GlobalVarsService) {
+    this.teamName = globalVarsService.getCurrentTeamText();
   }
 
   private teamReady() {
-    // this.navCtrl.setRoot(CardPage);
-    // this.playGameService.playGame();
-    // this.navCtrl.push(CardPage)
     this.navCtrl.setRoot(CardPage);
   }
-
-
 
 }
