@@ -16,10 +16,10 @@
       </ion-col>
       <ion-col>
         <ion-row>
-          Team 1 Score: {{team1score}}
+          {{team1Text}} Score: {{team1score}}
         </ion-row>
         <ion-row>
-          Team 2 Score: {{team2score}}
+          {{team2Text}} Score: {{team2score}}
         </ion-row>
       </ion-col>
     </ion-row>
@@ -48,10 +48,10 @@
       <ion-col>
         <!--Different buttons? --->
         <!--Change buttons to icons instead of text? -->
-        <button ion-button class="skipOrTabooBtn">Skip/Taboo</button>
+        <button ion-button class="skipOrTabooBtn" (click)='skipOrTaboo()'>Skip/Taboo</button>
       </ion-col>
       <ion-col>
-        <button ion-button class="correctBtn">Correct!</button>
+        <button ion-button class="correctBtn" (click)='correct()'>Correct!</button>
       </ion-col>
     </ion-row>
   </ion-grid>
