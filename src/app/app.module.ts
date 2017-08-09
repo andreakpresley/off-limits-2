@@ -43,6 +43,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    PlayGameService,
     GlobalVarsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
