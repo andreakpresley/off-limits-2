@@ -27,18 +27,12 @@
 
   <ion-card>
     <ion-item class="cardHeader">
-      <h2>Word To Guess</h2>
+      <h2>{{wordObj.correctWord}}</h2>
     </ion-item>
     <ion-card-content>
       <ul>
-        <li>
-          Off-limits word
-        </li>
-        <li>
-          Off-limits word
-        </li>
-        <li>
-          Off-limits word
+        <li *ngFor="let tabooWords of wordObj.offLimits"> 
+          {{tabooWords}}
         </li>
       </ul>
     </ion-card-content>

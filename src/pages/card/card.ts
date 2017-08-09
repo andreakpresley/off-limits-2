@@ -1,7 +1,9 @@
+import { Word } from './../../models/word';
 import { Component } from '@angular/core';
 import { ReadyPage } from '../ready/ready';
 import { NavController } from 'ionic-angular';
 import { GlobalVarsService } from '../../services/globalVars.service';
+import { PlayGameService } from '../../services/playGame.service';
 
 @Component({
   selector: 'page-card',
@@ -18,14 +20,23 @@ export class CardPage {
   private team1Text: string;
   private team2Text: string;
   private currentTeam;
+  private wordObj: Word;
 
-  constructor(public navCtrl: NavController, private globalVarsService: GlobalVarsService) {
+  constructor(
+      public navCtrl: NavController, 
+      private globalVarsService: GlobalVarsService, 
+      private playGameService: PlayGameService
+    ) {
+      this.playGameService.playGame();
     this.startRound();
     this.team1score = globalVarsService.getTeam1Score();
     this.team2score = globalVarsService.getTeam2Score();
     this.team1Text = globalVarsService.getTeam1Text();
     this.team2Text = globalVarsService.getTeam2Text();
     this.currentTeam = globalVarsService.getCurrentTeam();
+
+    this.wordObj = playGameService.getWord();
+    console.log('word', this.wordObj)
   }
 
   public startRound() {
@@ -68,8 +79,7 @@ export class CardPage {
       this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() - 1);
       this.team2score = this.globalVarsService.getTeam2Score();
     }
-
-    //change words on card
+    this.wordObj = this.playGameService.getWord();
   }
 
   private correct() {
@@ -80,7 +90,7 @@ export class CardPage {
       this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() + 1);
       this.team2score = this.globalVarsService.getTeam2Score();
     }
-    //change words on card
+    this.wordObj = this.playGameService.getWord();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
 // import { NavController } from 'ionic-angular';
+import { easyWords } from '../assets/easyWords';
 
 import { CardPage } from '../pages/card/card';
 
@@ -10,14 +11,17 @@ export class PlayGameService {
   private seconds: number = this.defaultTimer;
   private timer;
 
-  // constructor(public navCtrl: NavController) {
-  //
-  // }
+  constructor() {}
 
   public playGame() {
     console.log('playing game');
     this.startTimer();
     // this.navCtrl.setRoot(CardPage);
+  }
+
+  public getWord() {
+    let randomNumber = Math.floor(Math.random() * easyWords.length) 
+    return easyWords[randomNumber];
   }
 
   private startTimer() {
