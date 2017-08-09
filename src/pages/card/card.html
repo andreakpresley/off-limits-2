@@ -1,25 +1,43 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Header - CardPage
+      {{currentTeamText}}'s Turn
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
+  <ion-grid class="teamGrid">
     <ion-row>
       <ion-col>
-        <div>
-          {{seconds}}
-        </div>
+        <ion-row>
+          <ion-col class="centeredText teamName">
+            {{team1Text}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="centeredText score">
+            {{team1score}}
+          </ion-col>
+        </ion-row>
       </ion-col>
       <ion-col>
         <ion-row>
-          {{team1Text}} Score: {{team1score}}
+          <ion-col class="centeredText">
+            {{seconds}}
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col class="centeredText teamName">
+            {{team2Text}}
+          </ion-col>
         </ion-row>
         <ion-row>
-          {{team2Text}} Score: {{team2score}}
+          <ion-col class="centeredText score">
+            {{team2score}}
+          </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
@@ -27,17 +45,15 @@
 
   <ion-card>
     <ion-item class="cardHeader">
-      <h2>{{wordObj.correctWord}}</h2>
+      <p>{{wordObj.correctWord}}</p>
     </ion-item>
-    <ion-card-content>
-      <ul>
-        <li *ngFor="let tabooWords of wordObj.offLimits"> 
+    <ion-card-content class="offLimitsWords">
+        <p *ngFor="let tabooWords of wordObj.offLimits">
           {{tabooWords}}
-        </li>
-      </ul>
+        </p>
     </ion-card-content>
   </ion-card>
-  <ion-grid>
+  <ion-grid class="btnGrid">
     <ion-row>
       <ion-col>
         <!--Different buttons? --->
