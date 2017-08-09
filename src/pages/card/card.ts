@@ -11,7 +11,7 @@ import { PlayGameService } from '../../services/playGame.service';
 })
 export class CardPage {
 
-  private defaultTimer: number = 10;
+  private defaultTimer: number = 120;
   private seconds: number = this.defaultTimer;
   private timer;
   private team1score: number;
@@ -19,12 +19,13 @@ export class CardPage {
   private team3score: number;
   private team1Text: string;
   private team2Text: string;
+  private currentTeamText: string;
   private currentTeam;
   private wordObj: Word;
 
   constructor(
-      public navCtrl: NavController, 
-      private globalVarsService: GlobalVarsService, 
+      public navCtrl: NavController,
+      private globalVarsService: GlobalVarsService,
       private playGameService: PlayGameService
     ) {
       this.playGameService.playGame();
@@ -34,6 +35,7 @@ export class CardPage {
     this.team1Text = globalVarsService.getTeam1Text();
     this.team2Text = globalVarsService.getTeam2Text();
     this.currentTeam = globalVarsService.getCurrentTeam();
+    this.currentTeamText = globalVarsService.getCurrentTeamText();
 
     this.wordObj = playGameService.getWord();
     console.log('word', this.wordObj)

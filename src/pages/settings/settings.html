@@ -27,7 +27,7 @@
       Timer Length (in seconds)
     </ion-list-header>
     <ion-item >
-      <ion-range min="30" max="300" step="30" pin="true">
+      <ion-range min="30" max="300" step="5" pin="true">
         <ion-icon range-left small name="ios-timer-outline"></ion-icon>
         <ion-icon range-right name="ios-timer-outline"></ion-icon>
       </ion-range>
@@ -39,10 +39,10 @@
       Team Names
     </ion-list-header>
     <ion-item>
-      <ion-input [(ngModel)]="team1Name" (change)="team1NameChanged()"></ion-input>
+      <ion-input [(ngModel)]="team1Name" (change)="team1NameChanged()" maxlength="10"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="team2Name" (change)="team2NameChanged()"></ion-input>
+      <ion-input [(ngModel)]="team2Name" (change)="team2NameChanged()" maxlength="10"></ion-input>
     </ion-item>
   </ion-list>
 

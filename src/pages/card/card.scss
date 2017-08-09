@@ -1,12 +1,29 @@
-$blue: #28ABE3;
-$red: #DB3340;
-$green: #20DA9B;
+$blue: #15C8F7;
+$red: #ED2229;
+$green: #53db85;
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+$font-Poppins: 'Poppins';
+$font-Roboto: 'Roboto';
 
 page-card {
+  font-family: $font-Poppins;
+  ion-header {
+    text-align: center;
+  }
+  .teamGrid {
+    margin-bottom: 30px;
+  }
+  .btnGrid {
+    margin-top: 30px;
+  }
   .cardHeader {
     background: $blue;
-    h2 {
+    p {
       color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: 150%;
     }
   }
   .skipOrTabooBtn {
@@ -16,4 +33,30 @@ page-card {
     background: $green;
     float: right;
   }
+  .centeredText {
+    text-align: center;
+  }
+
+  ion-card-content {
+    text-align: center;
+  }
+
+  .teamName {
+    font-weight: bold;
+  }
+
+  .score {
+    font-size: 150%;
+  }
+
+  .offLimitsWords {
+    p {
+      font-size: 115%;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      font-family: $font-Roboto!important;
+    }
+
+  }
+
 }
