@@ -7,8 +7,8 @@ import { CardPage } from '../pages/card/card';
 
 @Injectable()
 export class PlayGameService {
-  private defaultTimer: number = 90;
-  private seconds: number = this.defaultTimer;
+  public defaultTimer: number = 90;
+  public seconds: number = this.defaultTimer;
   private timer;
 
   constructor() {}
