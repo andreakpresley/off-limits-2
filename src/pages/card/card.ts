@@ -10,9 +10,7 @@ import { PlayGameService } from '../../services/playGame.service';
   templateUrl: 'card.html'
 })
 export class CardPage {
-
-  private defaultTimer: number = 120;
-  private seconds: number = this.defaultTimer;
+  private seconds: number;
   private timer;
   private team1score: number;
   private team2score: number;
@@ -37,6 +35,8 @@ export class CardPage {
     this.currentTeam = globalVarsService.getCurrentTeam();
     this.currentTeamText = globalVarsService.getCurrentTeamText();
 
+    this.seconds = this.playGameService.defaultTimer
+
     this.wordObj = playGameService.getWord();
     console.log('word', this.wordObj)
   }
@@ -46,7 +46,7 @@ export class CardPage {
   }
 
   private startTimer() {
-    this.seconds = this.defaultTimer;
+    this.seconds = this.playGameService.defaultTimer;
     this.countdownTimer();
   }
 
