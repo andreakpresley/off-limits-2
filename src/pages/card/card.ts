@@ -1,6 +1,7 @@
 import { Word } from './../../models/word';
 import { Component } from '@angular/core';
 import { ReadyPage } from '../ready/ready';
+import { WinnerPage } from '../winner/winner';
 import { NavController } from 'ionic-angular';
 import { GlobalVarsService } from '../../services/globalVars.service';
 import { PlayGameService } from '../../services/playGame.service';
@@ -26,7 +27,7 @@ export class CardPage {
       private globalVarsService: GlobalVarsService,
       private playGameService: PlayGameService
     ) {
-      this.playGameService.playGame();
+    this.playGameService.playGame();
     this.startRound();
     this.team1score = globalVarsService.getTeam1Score();
     this.team2score = globalVarsService.getTeam2Score();
@@ -88,11 +89,25 @@ export class CardPage {
     if(this.currentTeam === 0) {
       this.globalVarsService.setTeam1Score(this.globalVarsService.getTeam1Score() + 1);
       this.team1score = this.globalVarsService.getTeam1Score();
+      this.checkForWinningScore(this.team1score);
     } else {
       this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() + 1);
       this.team2score = this.globalVarsService.getTeam2Score();
+      this.checkForWinningScore(this.team2score);
     }
     this.wordObj = this.playGameService.getWord();
+  }
+
+  private checkForWinningScore(currentTeamScore) {
+    if(currentTeamScore === this.globalVarsService.winningScore) {
+      this.gameWon();
+    }
+  }
+
+  private gameWon() {
+    this.playGameService.isGameBeingPlayed = false;
+    this.globalVarsService.resetTeamScores();
+    this.navCtrl.setRoot(WinnerPage);
   }
 
 }

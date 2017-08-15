@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ReadyPage } from '../ready/ready';
+import { GlobalVarsService } from '../../services/globalVars.service';
+import { PlayGameService } from '../../services/playGame.service';
 
 @Component({
   selector: 'page-home',
@@ -8,17 +10,23 @@ import { ReadyPage } from '../ready/ready';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController, private globalVarsService: GlobalVarsService, private playGameService: PlayGameService) {
   }
 
-  private openReadyPage() {
-    //need to clear global score vars
+  private startNewGame() {
+    this.navCtrl.setRoot(ReadyPage);
+    this.playGameService.isGameBeingPlayed = true;
+    this.globalVarsService.resetTeamScores();
+  }
+
+  private continueGame() {
+    //TODO: not reset timer
     this.navCtrl.setRoot(ReadyPage);
   }
 
-  private openSettingsPage() {
-    this.navCtrl.parent.select(2);
+  private endCurrentGame() {
+    //TODO: take to a winner page? or no?
+    this.playGameService.isGameBeingPlayed = false;
   }
 
 }

@@ -7,6 +7,7 @@ import { CardPage } from '../pages/card/card';
 
 @Injectable()
 export class PlayGameService {
+  public isGameBeingPlayed = false;
   public defaultTimer: number = 90;
   public seconds: number = this.defaultTimer;
   private timer;
@@ -20,7 +21,7 @@ export class PlayGameService {
   }
 
   public getWord() {
-    let randomNumber = Math.floor(Math.random() * easyWords.length) 
+    let randomNumber = Math.floor(Math.random() * easyWords.length)
     return easyWords[randomNumber];
   }
 
