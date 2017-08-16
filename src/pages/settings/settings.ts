@@ -14,8 +14,8 @@ export class SettingsPage {
   private timerLength:number;
 
   constructor(
-    public navCtrl: NavController, 
-    private globalVarsService: GlobalVarsService, 
+    public navCtrl: NavController,
+    private globalVarsService: GlobalVarsService,
     private playGameService: PlayGameService) {
     this.team1Name = globalVarsService.getTeam1Text();
     this.team2Name = globalVarsService.getTeam2Text();
