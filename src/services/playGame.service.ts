@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
+
 // import { NavController } from 'ionic-angular';
 import { easyWords } from '../assets/easyWords';
 
@@ -9,9 +11,13 @@ import { CardPage } from '../pages/card/card';
 export class PlayGameService {
   public defaultTimer: number = 90;
   public seconds: number = this.defaultTimer;
+  public easyDifficulty = true;
+  public winningScore = 15;
   private timer;
 
-  constructor() {}
+  constructor(private storage: Storage) {
+    this.getSettingsFromStorage();
+  }
 
   public playGame() {
     console.log('playing game');
@@ -22,6 +28,10 @@ export class PlayGameService {
   public getWord() {
     let randomNumber = Math.floor(Math.random() * easyWords.length) 
     return easyWords[randomNumber];
+  }
+
+  public getSeconds() {
+    return this.seconds;
   }
 
   private startTimer() {
@@ -39,7 +49,17 @@ export class PlayGameService {
     }
   }
 
-  public getSeconds() {
-    return this.seconds;
+  private getSettingsFromStorage(): void {
+    setTimeout(function(){ 
+      this.defaultTimer = 40;
+    }, 3000);
+   
+    
+    this.storage.get('settings').then((settings) => {
+      this.defaultTimer = settings.defaultTimer; 
+      this.winningScore = settings.winningScore;
+      this.easyDifficulty = settings.easyDifficulty;
+    });
   }
+  
 }

@@ -10,12 +10,12 @@
 
   <ion-list>
     <ion-list-header>
-      Game Winning Score
+      Game Winning Score {{playGameService.winningScore}}
       <!-- <ion-badge item-end>20</ion-badge> if we want to add badges-->
     </ion-list-header>
     <ion-item>
       <!-- <ion-range [(ngModel)]="brightness"> example code for when we add model -->
-      <ion-range min="1" max="30" pin="true"> 
+      <ion-range min="1" max="30" pin="true" [(ngModel)]="playGameService.winningScore"> 
         <ion-icon range-left small name="ios-flag-outline"></ion-icon>
         <ion-icon range-right name="ios-flag-outline"></ion-icon>
       </ion-range>
@@ -46,17 +46,17 @@
     </ion-item>
   </ion-list>
 
-  <ion-list radio-group>
+  <ion-list radio-group [(ngModel)]="playGameService.easyDifficulty"> 
     <ion-list-header>
-      Difficulty Level
+      Difficulty Level {{playGameService.easyDifficulty}}
     </ion-list-header>
     <ion-item no-lines>
       <ion-label>Easy</ion-label>
-      <ion-radio checked="true" value="easy"></ion-radio>
+      <ion-radio checked="true" value="true"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label>Hard</ion-label>
-      <ion-radio value="hard"></ion-radio>
+      <ion-radio value="false"></ion-radio>
     </ion-item>
   </ion-list>
 
