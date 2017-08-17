@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { CardPage } from '../pages/card/card';
 import { ReadyPage } from '../pages/ready/ready';
+import { WinnerPage } from '../pages/winner/winner';
 
 import { PlayGameService } from '../services/playGame.service';
 import { GlobalVarsService } from '../services/globalVars.service';
@@ -26,7 +27,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     CardPage,
-    ReadyPage
+    ReadyPage,
+    WinnerPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     CardPage,
-    ReadyPage
+    ReadyPage,
+    WinnerPage
   ],
   providers: [
     StatusBar,

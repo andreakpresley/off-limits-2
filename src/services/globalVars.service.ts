@@ -15,6 +15,8 @@ export class GlobalVarsService {
   private currentTeam;
   private team1Text;
   private team2Text;
+  public winningScore;
+  public difficultyLevel;
   // public teamTypes = Team;
 
   constructor() {
@@ -23,6 +25,13 @@ export class GlobalVarsService {
     this.currentTeam = Team.team1;
     this.team1Text = "Team 1";
     this.team2Text = "Team 2";
+    this.winningScore = 10;
+    this.difficultyLevel = "easy";
+  }
+
+  public resetTeamScores() {
+    this.team1score = 0;
+    this.team2score = 0;
   }
 
   public setTeam1Score(value) {

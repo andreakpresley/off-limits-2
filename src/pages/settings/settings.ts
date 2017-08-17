@@ -15,11 +15,17 @@ export class SettingsPage {
   private team2Name:string;
 
   constructor(
+<<<<<<< HEAD
     public navCtrl: NavController, 
     private globalVarsService: GlobalVarsService, 
     private playGameService: PlayGameService,
     private storage: Storage,
     private toastCtrl: ToastController) {
+=======
+    public navCtrl: NavController,
+    private globalVarsService: GlobalVarsService,
+    private playGameService: PlayGameService) {
+>>>>>>> master
     this.team1Name = globalVarsService.getTeam1Text();
     this.team2Name = globalVarsService.getTeam2Text();
   }
