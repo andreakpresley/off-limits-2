@@ -23,7 +23,6 @@ export class CardPage {
     this.seconds = this.gamesSettingsService.seconds;
 
     this.wordObj = gamesSettingsService.getWord();
-    console.log('word', this.wordObj)
   }
 
   public startRound() {
@@ -39,12 +38,14 @@ export class CardPage {
     this.gamesSettingsService.seconds = this.gamesSettingsService.seconds - 1;
     if(this.gamesSettingsService.seconds > 0) {
       this.timer = setTimeout(() => this.countdownTimer(), 1000);
-    } else {
+    } else { 
+      this.gamesSettingsService.seconds = this.gamesSettingsService.defaultTimer;
       this.timeOver();
     }
   }
 
   //Change the current team and then open the Ready page
+  //Shouldn't we check for a winner here?
   private timeOver() {
     if(this.gamesSettingsService.currentTeam === this.gamesSettingsService.team1Text) {
       this.gamesSettingsService.currentTeam = this.gamesSettingsService.team2Text;

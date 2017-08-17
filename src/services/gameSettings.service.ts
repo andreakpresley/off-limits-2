@@ -20,6 +20,7 @@ export class GamesSettingsService {
   public difficultyLevel;
   public isGameBeingPlayed = false;
   public seconds = 60;
+  public defaultTimer = 60;
 
   constructor() {
     this.team1score = 0;
@@ -29,6 +30,8 @@ export class GamesSettingsService {
     this.team2Text = "Team 2";
     this.winningScore = 10;
     this.difficultyLevel = "easy";
+    this.defaultTimer = this.seconds;
+    this.getSettingsFromStorage();
   }
 
   public resetTeamScores() {
@@ -48,11 +51,20 @@ export class GamesSettingsService {
   }
 
   public getCurrentTeamText() {
-    if(this.currentTeam === Team.team1) {
+    if (this.currentTeam === Team.team1) {
       return this.team1Text;
     } else {
       return this.team2Text;
     }
+  }
+
+  //this need to reset all of the variables to whatever is in localstorage (check that it exists first)
+  //Ask Josh about why he thinks we might need to return a Promise here
+  private getSettingsFromStorage(): void {
+    // setTimeout(function(){ 
+    //   console.log('timer changed')
+    //   this.seconds = 40;
+    // }, 5000);
   }
 
 }
