@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { GlobalVarsService } from '../../services/globalVars.service';
-import { PlayGameService } from '../../services/playGame.service';
+import { GamesSettingsService } from '../../services/gameSettings.service';
 
 @Component({
   selector: 'page-settings',
@@ -11,23 +10,12 @@ import { PlayGameService } from '../../services/playGame.service';
 })
 export class SettingsPage {
 
-  private team1Name:string;
-  private team2Name:string;
 
   constructor(
-<<<<<<< HEAD
     public navCtrl: NavController, 
-    private globalVarsService: GlobalVarsService, 
-    private playGameService: PlayGameService,
+    private gamesSettingsService: GamesSettingsService, 
     private storage: Storage,
     private toastCtrl: ToastController) {
-=======
-    public navCtrl: NavController,
-    private globalVarsService: GlobalVarsService,
-    private playGameService: PlayGameService) {
->>>>>>> master
-    this.team1Name = globalVarsService.getTeam1Text();
-    this.team2Name = globalVarsService.getTeam2Text();
   }
 
 
@@ -37,9 +25,9 @@ export class SettingsPage {
 
   public saveSettings() {
     let settings = {
-      defaultTimer: this.playGameService.defaultTimer,
-      winningScore: this.playGameService.winningScore,
-      easyDifficulty: this.playGameService.easyDifficulty
+      seconds: this.gamesSettingsService.seconds,
+      winningScore: this.gamesSettingsService.winningScore,
+      difficultyLevel: this.gamesSettingsService.difficultyLevel
     };
     this.storage.set('settings', settings);
 
@@ -50,14 +38,6 @@ export class SettingsPage {
       dismissOnPageChange: true
     });
     toast.present();
-  }
-
-  private team1NameChanged() {
-    this.globalVarsService.setTeam1Text(this.team1Name);
-  }
-
-  private team2NameChanged() {
-    this.globalVarsService.setTeam2Text(this.team2Name);
   }
 
 }

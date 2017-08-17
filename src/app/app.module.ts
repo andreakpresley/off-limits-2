@@ -13,8 +13,7 @@ import { CardPage } from '../pages/card/card';
 import { ReadyPage } from '../pages/ready/ready';
 import { WinnerPage } from '../pages/winner/winner';
 
-import { PlayGameService } from '../services/playGame.service';
-import { GlobalVarsService } from '../services/globalVars.service';
+import { GamesSettingsService } from '../services/gameSettings.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -49,8 +48,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    PlayGameService,
-    GlobalVarsService,
+    GamesSettingsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
