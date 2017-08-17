@@ -20,7 +20,6 @@ export class GamesSettingsService {
   public difficultyLevel;
   public isGameBeingPlayed = false;
   public seconds = 60;
-  // public teamTypes = Team;
 
   constructor() {
     this.team1score = 0;
@@ -37,7 +36,6 @@ export class GamesSettingsService {
     this.team2score = 0;
   }
 
-
   public playGame() {
     console.log('playing game');
     // this.startTimer();
@@ -47,6 +45,14 @@ export class GamesSettingsService {
   public getWord() {
     let randomNumber = Math.floor(Math.random() * easyWords.length)
     return easyWords[randomNumber];
+  }
+
+  public getCurrentTeamText() {
+    if(this.currentTeam === Team.team1) {
+      return this.team1Text;
+    } else {
+      return this.team2Text;
+    }
   }
 
 }

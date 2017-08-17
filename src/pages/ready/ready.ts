@@ -9,10 +9,7 @@ import { GamesSettingsService } from '../../services/gameSettings.service';
 })
 export class ReadyPage {
 
-  private teamName;
-
   constructor(public navCtrl: NavController, private gamesSettingsService: GamesSettingsService) {
-    this.teamName = this.gamesSettingsService.currentTeam;
   }
 
   private teamReady() {

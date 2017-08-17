@@ -59,7 +59,7 @@ export class CardPage {
   }
 
   private skipOrTaboo() {
-    if(this.gamesSettingsService.currentTeam === this.gamesSettingsService.team1Text) {
+    if(this.gamesSettingsService.currentTeam === 0) {
       this.gamesSettingsService.team1score -= 1;
     } else {
       this.gamesSettingsService.team2score -= 1;
@@ -68,7 +68,7 @@ export class CardPage {
   }
 
   private correct() {
-    if(this.gamesSettingsService.currentTeam === this.gamesSettingsService.team1Text) {
+    if(this.gamesSettingsService.currentTeam === 0) {
       this.gamesSettingsService.team1score += 1;
       this.checkForWinningScore(this.gamesSettingsService.team1score);
     } else {
