@@ -1,8 +1,10 @@
+import { HomePage } from './../home/home';
+import { NavController, App } from 'ionic-angular';
+
 import { Word } from './../../models/word';
 import { Component } from '@angular/core';
 import { ReadyPage } from '../ready/ready';
 import { WinnerPage } from '../winner/winner';
-import { NavController } from 'ionic-angular';
 import { GamesSettingsService } from '../../services/gameSettings.service';
 
 @Component({
@@ -15,26 +17,30 @@ export class CardPage {
   private wordObj: Word;
 
   constructor(
-      public navCtrl: NavController,
+      private navCtrl: NavController,
+      private app: App,
       private gamesSettingsService: GamesSettingsService
     ) {
     this.gamesSettingsService.playGame();
-    this.startRound();
     this.seconds = this.gamesSettingsService.seconds;
 
     this.wordObj = gamesSettingsService.getWord();
   }
 
-  public startRound() {
-    this.startTimer();
-  }
-
-  private startTimer() {
-    this.seconds = this.gamesSettingsService.seconds;
+  ionViewDidEnter() {
     this.countdownTimer();
   }
 
+  ionViewDidLeave() {
+    console.log('stop timer')
+    // this.app.getRootNav().setRoot( HomePage );
+    this.app.getRootNav().getActiveChildNav().select(3);
+    clearTimeout(this.timer);
+  }
+
+
   private countdownTimer() {
+    console.log('start countdown')
     this.gamesSettingsService.seconds = this.gamesSettingsService.seconds - 1;
     if(this.gamesSettingsService.seconds > 0) {
       this.timer = setTimeout(() => this.countdownTimer(), 1000);

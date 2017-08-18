@@ -20,7 +20,7 @@ export class SettingsPage {
 
 
   ionViewDidLeave() { 
-    this.saveSettings;
+    this.saveSettings();
   }
 
   public saveSettings() {
