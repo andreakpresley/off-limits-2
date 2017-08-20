@@ -1,10 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Congratulations!
+      Congratulations {{gamesSettingsService.getCurrentTeamText()}}!
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <img src="../../../assets/img/youWin.jpg" id="homePageLogo" />
+  <h4>The final scores were:</h4>
+  <h5>{{gamesSettingsService.team1Text}} - {{gamesSettingsService.team1score}}</h5>
+  <h5>{{gamesSettingsService.team2Text}} - {{gamesSettingsService.team2score}}</h5>
 </ion-content>

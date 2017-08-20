@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ReadyPage } from '../ready/ready';
+import { WinnerPage } from '../winner/winner';
 import { GamesSettingsService } from '../../services/gameSettings.service';
 
 @Component({
@@ -19,13 +20,12 @@ export class HomePage {
   }
 
   private continueGame() {
-    //TODO: not reset timer
     this.navCtrl.setRoot(ReadyPage);
   }
 
   private endCurrentGame() {
-    //TODO: take to a winner page? or no?
     this.gamesSettingsService.isGameBeingPlayed = false;
+    this.navCtrl.setRoot(WinnerPage);
   }
 
 }
