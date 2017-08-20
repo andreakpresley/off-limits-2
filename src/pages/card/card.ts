@@ -32,7 +32,6 @@ export class CardPage {
   }
 
   ionViewDidLeave() {
-    console.log('stop timer')
     // this.app.getRootNav().setRoot( HomePage );
     this.app.getRootNav().getActiveChildNav().select(3);
     clearTimeout(this.timer);
@@ -40,11 +39,10 @@ export class CardPage {
 
 
   private countdownTimer() {
-    console.log('start countdown')
     this.gamesSettingsService.seconds = this.gamesSettingsService.seconds - 1;
     if(this.gamesSettingsService.seconds > 0) {
       this.timer = setTimeout(() => this.countdownTimer(), 1000);
-    } else { 
+    } else {
       this.gamesSettingsService.seconds = this.gamesSettingsService.defaultTimer;
       this.timeOver();
     }
@@ -93,7 +91,6 @@ export class CardPage {
 
   private gameWon() {
     this.gamesSettingsService.isGameBeingPlayed = false;
-    this.gamesSettingsService.resetTeamScores();
     this.navCtrl.setRoot(WinnerPage);
   }
 
