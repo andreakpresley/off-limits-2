@@ -7,17 +7,17 @@
 </ion-header>
 
 <ion-content>
-  <button ion-button color="danger" block *ngIf="playGameService.isGameBeingPlayed">Settings cannot be changed during a game.</button>
+  <button ion-button color="danger" block *ngIf="gamesSettingsService.isGameBeingPlayed">Settings cannot be changed during a game.</button>
 
 
   <ion-list>
     <ion-list-header>
       Game Winning Score
-      <ion-badge item-end>{{globalVarsService.winningScore}}</ion-badge>
+      <ion-badge item-end>{{gamesSettingsService.winningScore}}</ion-badge>
     </ion-list-header>
     <ion-item>
       <!-- <ion-range [(ngModel)]="brightness"> example code for when we add model -->
-      <ion-range min="1" max="30" pin="true" [(ngModel)]="globalVarsService.winningScore" color="thirdary" disabled="{{playGameService.isGameBeingPlayed}}">
+      <ion-range min="1" max="30" pin="true" [(ngModel)]="gamesSettingsService.winningScore" color="thirdary" disabled="{{gamesSettingsService.isGameBeingPlayed}}">
         <ion-icon range-left small name="ios-flag-outline"></ion-icon>
         <ion-icon range-right name="ios-flag-outline"></ion-icon>
       </ion-range>
@@ -27,10 +27,10 @@
   <ion-list>
     <ion-list-header>
       Timer Length (in seconds)
-      <ion-badge item-end>{{playGameService.defaultTimer}}</ion-badge>
+      <ion-badge item-end>{{gamesSettingsService.seconds}}</ion-badge>
     </ion-list-header>
     <ion-item >
-      <ion-range min="30" max="300" step="5" pin="true" [(ngModel)]="playGameService.defaultTimer" color="thirdary" disabled="{{playGameService.isGameBeingPlayed}}">
+      <ion-range min="30" max="300" step="5" pin="true" [(ngModel)]="gamesSettingsService.seconds" color="thirdary" disabled="{{gamesSettingsService.isGameBeingPlayed}}">
         <ion-icon range-left small name="ios-timer-outline"></ion-icon>
         <ion-icon range-right name="ios-timer-outline"></ion-icon>
       </ion-range>
@@ -42,24 +42,24 @@
       Team Names
     </ion-list-header>
     <ion-item>
-      <ion-input [(ngModel)]="team1Name" (change)="team1NameChanged()" maxlength="10" minlength="1" class="teamNameInput" clearInput disabled="{{playGameService.isGameBeingPlayed}}"></ion-input>
+      <ion-input [(ngModel)]="gamesSettingsService.team1Text" maxlength="10" minlength="1" class="teamNameInput" clearInput disabled="{{gamesSettingsService.isGameBeingPlayed}}"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="team2Name" (change)="team2NameChanged()" maxlength="10" minlength="1" class="teamNameInput" clearInput disabled="{{playGameService.isGameBeingPlayed}}"></ion-input>
+      <ion-input [(ngModel)]="gamesSettingsService.team2Text" maxlength="10" minlength="1" class="teamNameInput" clearInput disabled="{{gamesSettingsService.isGameBeingPlayed}}"></ion-input>
     </ion-item>
   </ion-list>
 
-  <ion-list radio-group [(ngModel)]="globalVarsService.difficultyLevel">
+  <ion-list radio-group [(ngModel)]="gamesSettingsService.difficultyLevel">
     <ion-list-header>
-      Difficulty Level
+      Difficulty Level {{gamesSettingsService.easyDifficulty}}
     </ion-list-header>
     <ion-item no-lines>
       <ion-label class="difficultyLabelText">Easy</ion-label>
-      <ion-radio checked="true" value="easy" disabled="{{playGameService.isGameBeingPlayed}}"></ion-radio>
+      <ion-radio checked="true" value="easy" disabled="{{gamesSettingsService.isGameBeingPlayed}}"></ion-radio>
     </ion-item>
     <ion-item>
       <ion-label class="difficultyLabelText">Hard</ion-label>
-      <ion-radio value="hard" disabled="{{playGameService.isGameBeingPlayed}}"></ion-radio>
+      <ion-radio value="hard" disabled="{{gamesSettingsService.isGameBeingPlayed}}"></ion-radio>
     </ion-item>
   </ion-list>
 

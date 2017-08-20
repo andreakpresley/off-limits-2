@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
+
 import { MyApp } from './app.component';
 
 import { RulesPage } from '../pages/rules/rules';
@@ -11,8 +13,7 @@ import { CardPage } from '../pages/card/card';
 import { ReadyPage } from '../pages/ready/ready';
 import { WinnerPage } from '../pages/winner/winner';
 
-import { PlayGameService } from '../services/playGame.service';
-import { GlobalVarsService } from '../services/globalVars.service';
+import { GamesSettingsService } from '../services/gameSettings.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +31,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,8 +48,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    PlayGameService,
-    GlobalVarsService,
+    GamesSettingsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

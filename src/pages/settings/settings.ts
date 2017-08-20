@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { GlobalVarsService } from '../../services/globalVars.service';
-import { PlayGameService } from '../../services/playGame.service';
+import { NavController, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
+import { GamesSettingsService } from '../../services/gameSettings.service';
 
 @Component({
   selector: 'page-settings',
@@ -9,29 +10,34 @@ import { PlayGameService } from '../../services/playGame.service';
 })
 export class SettingsPage {
 
-  private team1Name:string;
-  private team2Name:string;
-  private timerLength:number;
 
   constructor(
-    public navCtrl: NavController,
-    private globalVarsService: GlobalVarsService,
-    private playGameService: PlayGameService) {
-    this.team1Name = globalVarsService.getTeam1Text();
-    this.team2Name = globalVarsService.getTeam2Text();
-    this.timerLength = this.playGameService.seconds;
+    public navCtrl: NavController, 
+    private gamesSettingsService: GamesSettingsService, 
+    private storage: Storage,
+    private toastCtrl: ToastController) {
+  }
+
+
+  ionViewDidLeave() { 
+    this.saveSettings();
   }
 
   public saveSettings() {
-    this.playGameService.defaultTimer = this.timerLength;
-  }
+    let settings = {
+      seconds: this.gamesSettingsService.seconds,
+      winningScore: this.gamesSettingsService.winningScore,
+      difficultyLevel: this.gamesSettingsService.difficultyLevel
+    };
+    this.storage.set('settings', settings);
 
-  private team1NameChanged() {
-    this.globalVarsService.setTeam1Text(this.team1Name);
-  }
-
-  private team2NameChanged() {
-    this.globalVarsService.setTeam2Text(this.team2Name);
+    let toast = this.toastCtrl.create({
+      message: 'Settings Saved!',
+      duration: 1000,
+      showCloseButton: true,
+      dismissOnPageChange: true
+    });
+    toast.present();
   }
 
 }

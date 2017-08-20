@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{currentTeamText}}'s Turn
+      {{gamesSettingsService.getCurrentTeamText()}}'s Turn
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -12,31 +12,31 @@
       <ion-col>
         <ion-row>
           <ion-col class="centeredText teamName">
-            {{team1Text}}
+            {{gamesSettingsService.team1Text}}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="centeredText score">
-            {{team1score}}
+            {{gamesSettingsService.team1score}}
           </ion-col>
         </ion-row>
       </ion-col>
       <ion-col>
         <ion-row>
           <ion-col class="centeredText">
-            {{seconds}}
+            {{gamesSettingsService.seconds}}
           </ion-col>
         </ion-row>
       </ion-col>
       <ion-col>
         <ion-row>
           <ion-col class="centeredText teamName">
-            {{team2Text}}
+            {{gamesSettingsService.team2Text}}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="centeredText score">
-            {{team2score}}
+            {{gamesSettingsService.team2score}}
           </ion-col>
         </ion-row>
       </ion-col>

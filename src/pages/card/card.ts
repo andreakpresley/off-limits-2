@@ -1,10 +1,11 @@
+import { HomePage } from './../home/home';
+import { NavController, App } from 'ionic-angular';
+
 import { Word } from './../../models/word';
 import { Component } from '@angular/core';
 import { ReadyPage } from '../ready/ready';
 import { WinnerPage } from '../winner/winner';
-import { NavController } from 'ionic-angular';
-import { GlobalVarsService } from '../../services/globalVars.service';
-import { PlayGameService } from '../../services/playGame.service';
+import { GamesSettingsService } from '../../services/gameSettings.service';
 
 @Component({
   selector: 'page-card',
@@ -13,59 +14,49 @@ import { PlayGameService } from '../../services/playGame.service';
 export class CardPage {
   private seconds: number;
   private timer;
-  private team1score: number;
-  private team2score: number;
-  private team3score: number;
-  private team1Text: string;
-  private team2Text: string;
-  private currentTeamText: string;
-  private currentTeam;
   private wordObj: Word;
 
   constructor(
-      public navCtrl: NavController,
-      private globalVarsService: GlobalVarsService,
-      private playGameService: PlayGameService
+      private navCtrl: NavController,
+      private app: App,
+      private gamesSettingsService: GamesSettingsService
     ) {
-    this.playGameService.playGame();
-    this.startRound();
-    this.team1score = globalVarsService.getTeam1Score();
-    this.team2score = globalVarsService.getTeam2Score();
-    this.team1Text = globalVarsService.getTeam1Text();
-    this.team2Text = globalVarsService.getTeam2Text();
-    this.currentTeam = globalVarsService.getCurrentTeam();
-    this.currentTeamText = globalVarsService.getCurrentTeamText();
+    this.gamesSettingsService.playGame();
+    this.seconds = this.gamesSettingsService.seconds;
 
-    this.seconds = this.playGameService.defaultTimer
-
-    this.wordObj = playGameService.getWord();
-    console.log('word', this.wordObj)
+    this.wordObj = gamesSettingsService.getWord();
   }
 
-  public startRound() {
-    this.startTimer();
-  }
-
-  private startTimer() {
-    this.seconds = this.playGameService.defaultTimer;
+  ionViewDidEnter() {
     this.countdownTimer();
   }
 
+  ionViewDidLeave() {
+    console.log('stop timer')
+    // this.app.getRootNav().setRoot( HomePage );
+    this.app.getRootNav().getActiveChildNav().select(3);
+    clearTimeout(this.timer);
+  }
+
+
   private countdownTimer() {
-    this.seconds = this.seconds - 1;
-    if(this.seconds > 0) {
+    console.log('start countdown')
+    this.gamesSettingsService.seconds = this.gamesSettingsService.seconds - 1;
+    if(this.gamesSettingsService.seconds > 0) {
       this.timer = setTimeout(() => this.countdownTimer(), 1000);
-    } else {
+    } else { 
+      this.gamesSettingsService.seconds = this.gamesSettingsService.defaultTimer;
       this.timeOver();
     }
   }
 
   //Change the current team and then open the Ready page
+  //Shouldn't we check for a winner here?
   private timeOver() {
-    if(this.currentTeam === 0) {
-      this.globalVarsService.setCurrentTeam(1);
+    if(this.gamesSettingsService.currentTeam === this.gamesSettingsService.team1Text) {
+      this.gamesSettingsService.currentTeam = this.gamesSettingsService.team2Text;
     } else {
-      this.globalVarsService.setCurrentTeam(0);
+      this.gamesSettingsService.currentTeam = this.gamesSettingsService.team1Text;
     }
     this.navCtrl.setRoot(ReadyPage);
   }
@@ -75,38 +66,34 @@ export class CardPage {
   }
 
   private skipOrTaboo() {
-    if(this.currentTeam === 0) {
-      this.globalVarsService.setTeam1Score(this.globalVarsService.getTeam1Score() - 1);
-      this.team1score = this.globalVarsService.getTeam1Score();
+    if(this.gamesSettingsService.currentTeam === 0) {
+      this.gamesSettingsService.team1score -= 1;
     } else {
-      this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() - 1);
-      this.team2score = this.globalVarsService.getTeam2Score();
+      this.gamesSettingsService.team2score -= 1;
     }
-    this.wordObj = this.playGameService.getWord();
+    this.wordObj = this.gamesSettingsService.getWord();
   }
 
   private correct() {
-    if(this.currentTeam === 0) {
-      this.globalVarsService.setTeam1Score(this.globalVarsService.getTeam1Score() + 1);
-      this.team1score = this.globalVarsService.getTeam1Score();
-      this.checkForWinningScore(this.team1score);
+    if(this.gamesSettingsService.currentTeam === 0) {
+      this.gamesSettingsService.team1score += 1;
+      this.checkForWinningScore(this.gamesSettingsService.team1score);
     } else {
-      this.globalVarsService.setTeam2Score(this.globalVarsService.getTeam2Score() + 1);
-      this.team2score = this.globalVarsService.getTeam2Score();
-      this.checkForWinningScore(this.team2score);
+      this.gamesSettingsService.team2score += 1;
+      this.checkForWinningScore(this.gamesSettingsService.team2score);
     }
-    this.wordObj = this.playGameService.getWord();
+    this.wordObj = this.gamesSettingsService.getWord();
   }
 
   private checkForWinningScore(currentTeamScore) {
-    if(currentTeamScore === this.globalVarsService.winningScore) {
+    if(currentTeamScore === this.gamesSettingsService.winningScore) {
       this.gameWon();
     }
   }
 
   private gameWon() {
-    this.playGameService.isGameBeingPlayed = false;
-    this.globalVarsService.resetTeamScores();
+    this.gamesSettingsService.isGameBeingPlayed = false;
+    this.gamesSettingsService.resetTeamScores();
     this.navCtrl.setRoot(WinnerPage);
   }
 
