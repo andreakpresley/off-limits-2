@@ -5,15 +5,10 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
-import { RulesPage } from '../pages/rules/rules';
-import { SettingsPage } from '../pages/settings/settings';
+import { AnotherPage } from '../pages/anotherPage/anotherPage';
+import { InnerPage } from '../pages/inner/inner';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { CardPage } from '../pages/card/card';
-import { ReadyPage } from '../pages/ready/ready';
-import { WinnerPage } from '../pages/winner/winner';
-
-import { GamesSettingsService } from '../services/gameSettings.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,13 +16,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-    RulesPage,
-    SettingsPage,
+    AnotherPage,
+    InnerPage,
     HomePage,
-    TabsPage,
-    CardPage,
-    ReadyPage,
-    WinnerPage
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -37,18 +29,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    RulesPage,
-    SettingsPage,
+    AnotherPage,
+    InnerPage,
     HomePage,
-    TabsPage,
-    CardPage,
-    ReadyPage,
-    WinnerPage
+    TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    GamesSettingsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

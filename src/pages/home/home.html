@@ -1,12 +1,8 @@
 <ion-content padding>
-  <img src="../../../assets/logo/purple.jpg" id="homePageLogo" />
   <p>
-    <button ion-button (click)="continueGame()" id="continueBtn" *ngIf="gamesSettingsService.isGameBeingPlayed">Continue</button>
+    Home page
   </p>
   <p>
-    <button ion-button (click)="startNewGame()" id="startNewGameBtn" *ngIf="!gamesSettingsService.isGameBeingPlayed">Start New Game</button>
-  </p>
-  <p>
-    <button ion-button (click)="endCurrentGame()" id="startNewGameBtn" *ngIf="gamesSettingsService.isGameBeingPlayed">End Current Game</button>
+    <button ion-button (click)="goToNextPage()">Go to another page</button>
   </p>
 </ion-content>
