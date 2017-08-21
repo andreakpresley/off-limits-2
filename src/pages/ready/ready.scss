@@ -1,16 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins);
 $font-Poppins: 'Poppins';
 
-button {
-  width: 12em;
-  height: 3em;
-}
-
-page-home {
+page-ready {
+  background: #28ABE3;
   ion-content {
+    background: #28ABE3!important;
     text-align: center;
-    top: 20%;
+    top: 35%;
     font-family: $font-Poppins;
+    color: white!important;
   }
-
 }

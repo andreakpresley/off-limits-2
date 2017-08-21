@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { AnotherPage } from '../anotherPage/anotherPage';
+import { RulesPage } from '../rules/rules';
+import { SettingsPage } from '../settings/settings';
 import { HomePage } from '../home/home';
-import { NavController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -10,16 +10,10 @@ import { NavController } from 'ionic-angular';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = AnotherPage;
+  tab2Root = RulesPage;
+  tab3Root = SettingsPage;
 
-  constructor(public navCtrl: NavController) {
+  constructor() {
 
-  }
-
-  forceHome() {
-    this.navCtrl.setRoot(HomePage);
-
-    //Uncomment below to see the tabs, but freeze the screen from going anywhere
-    // this.navCtrl.setRoot(TabsPage);
   }
 }
