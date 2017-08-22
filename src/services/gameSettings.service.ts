@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { easyWords } from '../assets/easyWords';
+import { hardWords } from '../assets/hardWords';
 
 export enum Team {
   team1,
@@ -46,8 +47,13 @@ export class GamesSettingsService {
   }
 
   public getWord() {
-    let randomNumber = Math.floor(Math.random() * easyWords.length)
-    return easyWords[randomNumber];
+    if (this.difficultyLevel === 'easy') {
+      let randomNumber = Math.floor(Math.random() * easyWords.length)
+      return easyWords[randomNumber];
+    } else {
+      let randomNumber = Math.floor(Math.random() * hardWords.length)
+      return hardWords[randomNumber];
+    }
   }
 
   public getCurrentTeamText() {
