@@ -10,5 +10,30 @@ page-winner {
     img {
       width: 50%;
     }
+    #finalText {
+      padding-top:40px;
+      padding-bottom:10px;
+    }
+    .scoresText {
+      font-size: 1.4em;
+    }
+    .scoreBox {
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 7px;
+      padding-right:7px;
+      margin-left: 20px;
+      background-color: #15C8F7;
+      color: white;
+      float: right;
+      width: 50px;
+    }
+    .scoreBoxGreen {
+      background-color: #15C8F7;
+    }
+    #endingScoresDiv {
+      width: 50%;
+      margin: 0 auto;
+    }
   }
 }
