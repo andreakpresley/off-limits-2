@@ -49,7 +49,6 @@ export class CardPage {
   }
 
   //Change the current team and then open the Ready page
-  //Shouldn't we check for a winner here?
   private timeOver() {
     if(this.gamesSettingsService.currentTeam === this.gamesSettingsService.team1Text) {
       this.gamesSettingsService.currentTeam = this.gamesSettingsService.team2Text;
