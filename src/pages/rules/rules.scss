@@ -1,3 +1,17 @@
-page-rules {
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+$font-Poppins: 'Poppins';
+$font-Roboto: 'Roboto';
 
+page-rules {
+ h2 {
+   font-family: $font-Roboto;
+ }
+ p {
+   font-family: $font-Roboto;
+ }
+
+ ion-header {
+   font-family: $font-Poppins;
+ }
 }
