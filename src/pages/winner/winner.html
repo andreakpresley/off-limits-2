@@ -7,8 +7,12 @@
 </ion-header>
 
 <ion-content padding>
-  <img src="../../../assets/img/youWin.jpg" id="homePageLogo" />
-  <h4>The final scores were:</h4>
-  <h5>{{gamesSettingsService.team1Text}} - {{gamesSettingsService.team1score}}</h5>
-  <h5>{{gamesSettingsService.team2Text}} - {{gamesSettingsService.team2score}}</h5>
+  <img src="../../../assets/img/YouWin.png" id="homePageLogo" />
+  <div id="scoreDiv">
+    <h5 id="finalText">FINAL SCORES:</h5>
+    <div id="endingScoresDiv">
+      <p class="scoresText">{{gamesSettingsService.team1Text}} <span class="scoreBox">{{gamesSettingsService.team1score}}</span></p>
+      <p class="scoresText">{{gamesSettingsService.team2Text}} <span class="scoreBox scoreBoxGreen">{{gamesSettingsService.team2score}}</span></p>
+    </div>
+  </div>
 </ion-content>
