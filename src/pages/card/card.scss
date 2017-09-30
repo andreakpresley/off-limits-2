@@ -63,4 +63,57 @@ page-card {
     width: 90%;
   }
 
+  .countdownWarning {
+     @-webkit-keyframes blink {
+       0% {
+         background: white;
+         color:red;
+       }
+       50% {
+         background: white;
+         color:red;
+       }
+       100% {
+         background: white;
+         color:red;
+       }
+     }
+     @-moz-keyframes blink {
+       0% {
+         background: white;
+         color:red;;
+       }
+       50% {
+         background: white;
+         color:red;
+       }
+       100% {
+         background: white;
+         color:red;
+       }
+     }
+     @-ms-keyframes blink {
+       0% {
+         background: red;
+         color:white;
+       }
+       50% {
+         background: white;
+         color:red;
+       }
+       100% {
+         background: red;
+         color:white;
+       }
+     }
+     -webkit-animation: blink 1s infinite;
+     -moz-animation : blink 1s infinite;
+     -ms-animation : blink 1s infinite;
+   }
+
+   #timer {
+     font-size: 150%;
+     line-height: 60px;
+   }
+
 }
