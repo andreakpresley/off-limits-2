@@ -23,7 +23,7 @@
       </ion-col>
       <ion-col>
         <ion-row>
-          <ion-col class="centeredText">
+          <ion-col class="centeredText" id="timer" [ngClass]="{'countdownWarning': gamesSettingsService.seconds < 11}">
             {{gamesSettingsService.seconds}}
           </ion-col>
         </ion-row>
