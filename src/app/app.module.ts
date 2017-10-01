@@ -17,6 +17,7 @@ import { GamesSettingsService } from '../services/gameSettings.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    AdMobFree,
     GamesSettingsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
