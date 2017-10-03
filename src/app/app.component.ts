@@ -24,12 +24,15 @@ export class MyApp {
       // add your config here
       // for the sake of this example we will just use the test config
       isTesting: true,
-      autoShow: true
+      autoShow: true,
+      id: 'ca-app-pub-5035764387204735/5224848398',
+      bannerAtTop: true
     };
     this.admobFree.banner.config(bannerConfig);
 
     this.admobFree.banner.prepare()
       .then(() => {
+        console.log('ads ready')
         // banner Ad is ready
         // if we set autoShow to false, then we will need to call the show method here
       })
