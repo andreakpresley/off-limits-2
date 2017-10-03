@@ -17,6 +17,7 @@ export class HomePage {
     this.navCtrl.setRoot(ReadyPage);
     this.gamesSettingsService.isGameBeingPlayed = true;
     this.gamesSettingsService.resetTeamScores();
+    this.gamesSettingsService.seconds = 0;
   }
 
   private continueGame() {

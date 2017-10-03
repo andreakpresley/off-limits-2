@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
+
 import { easyWords } from '../assets/easyWords';
 import { hardWords } from '../assets/hardWords';
+import { Settings } from './../models/settings';
 
 export enum Team {
   team1,
@@ -20,10 +23,10 @@ export class GamesSettingsService {
   public winningScore;
   public difficultyLevel;
   public isGameBeingPlayed = false;
-  public seconds = 60;
   public defaultTimer = 60;
+  public seconds = 0;
 
-  constructor() {
+  constructor(private storage: Storage) {
     this.team1score = 0;
     this.team2score = 0;
     this.currentTeam = Team.team1;
@@ -31,7 +34,6 @@ export class GamesSettingsService {
     this.team2Text = "Team 2";
     this.winningScore = 10;
     this.difficultyLevel = "easy";
-    this.defaultTimer = this.seconds;
     this.getSettingsFromStorage();
   }
 
@@ -67,10 +69,13 @@ export class GamesSettingsService {
   //this need to reset all of the variables to whatever is in localstorage (check that it exists first)
   //Ask Josh about why he thinks we might need to return a Promise here
   private getSettingsFromStorage(): void {
-    // setTimeout(function(){ 
-    //   console.log('timer changed')
-    //   this.seconds = 40;
-    // }, 5000);
+    this.storage.get('settings').then((data: Settings) => {
+      if(data) {
+        this.defaultTimer = data.defaultTimer;
+        this.winningScore = data.winningScore;
+        this.difficultyLevel = data.difficultyLevel;
+      }
+    })
   }
 
 }

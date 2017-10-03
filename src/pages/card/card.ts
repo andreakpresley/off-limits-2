@@ -22,9 +22,13 @@ export class CardPage {
       private gamesSettingsService: GamesSettingsService
     ) {
     this.gamesSettingsService.playGame();
-    this.seconds = this.gamesSettingsService.seconds;
-
+    if (this.gamesSettingsService.seconds) {
+      this.seconds = this.gamesSettingsService.seconds;
+    } else {
+      this.gamesSettingsService.seconds = this.gamesSettingsService.defaultTimer;
+    }
     this.wordObj = gamesSettingsService.getWord();
+    console.log('cards is built')
   }
 
   ionViewDidEnter() {
