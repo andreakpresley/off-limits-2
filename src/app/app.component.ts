@@ -11,6 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 })
 export class MyApp {
   rootPage: any = TabsPage;
+  public result = '';
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private admobFree: AdMobFree) {
     platform.ready().then(() => {
@@ -23,7 +24,7 @@ export class MyApp {
     const bannerConfig: AdMobFreeBannerConfig = {
       // add your config here
       // for the sake of this example we will just use the test config
-      isTesting: true,
+      isTesting: false,
       autoShow: true,
       id: 'ca-app-pub-5035764387204735/5224848398',
       bannerAtTop: true
@@ -31,11 +32,12 @@ export class MyApp {
     this.admobFree.banner.config(bannerConfig);
 
     this.admobFree.banner.prepare()
-      .then(() => {
+      .then((value) => {
         console.log('ads ready')
+        this.result = value + ' ad is ready'
         // banner Ad is ready
         // if we set autoShow to false, then we will need to call the show method here
       })
-      .catch(e => console.log(e));
+      .catch(e => this.result = e + ' ad error');
   }
 }
