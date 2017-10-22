@@ -26,6 +26,9 @@ export class GamesSettingsService {
   public defaultTimer = 60;
   public seconds = 0;
 
+  private easyNumbersToPick = [];
+  private hardNumbersToPick = [];
+
   constructor(private storage: Storage) {
     this.team1score = 0;
     this.team2score = 0;
@@ -50,10 +53,12 @@ export class GamesSettingsService {
 
   public getWord() {
     if (this.difficultyLevel === 'easy') {
-      let randomNumber = Math.floor(Math.random() * easyWords.length)
+      let randomNumber = Math.floor(Math.random() * this.easyNumbersToPick.length);
+      this.findAndRemoveNumberFromArray(this.easyNumbersToPick, randomNumber);
       return easyWords[randomNumber];
     } else {
-      let randomNumber = Math.floor(Math.random() * hardWords.length)
+      let randomNumber = Math.floor(Math.random() * this.hardNumbersToPick.length);
+      this.findAndRemoveNumberFromArray(this.hardNumbersToPick, randomNumber);
       return hardWords[randomNumber];
     }
   }
@@ -70,12 +75,57 @@ export class GamesSettingsService {
   //Ask Josh about why he thinks we might need to return a Promise here
   private getSettingsFromStorage(): void {
     this.storage.get('settings').then((data: Settings) => {
-      if(data) {
+      if (data) {
         this.defaultTimer = data.defaultTimer;
         this.winningScore = data.winningScore;
         this.difficultyLevel = data.difficultyLevel;
       }
+    });
+
+    this.getUpAvaliableNumbers(this.difficultyLevel);
+  }
+
+  private getUpAvaliableNumbers(list) {
+    this.storage.get(list + 'Numbers').then((data: Array<number>) => {
+      if (data.length) {
+        if (list === 'easy') {
+          this.easyNumbersToPick = data;
+        } else {
+          this.hardNumbersToPick = data;
+        }
+      } else {
+        this.setUpAvaliableNumbers(list);
+      }
     })
+  }
+
+  private setUpAvaliableNumbers(list) {
+    let numbers = [];
+    for (let i = 0; i < list.length; i++) {
+      numbers.push(i);
+    }
+    this.setAvaliableNumbersStorage(list, numbers);
+  }
+
+  private setAvaliableNumbersStorage(list, array) {
+    this.storage.set(list + 'Numbers', array).then(data => {
+      console.log('New numbers list created', data);
+      if (list === 'easy') {
+        this.easyNumbersToPick = array;
+      } else {
+        this.hardNumbersToPick = array;
+      }
+    });
+  }
+
+  private findAndRemoveNumberFromArray(array, number) {
+    array.filter(element => element != number);
+
+    if (array.length === 0) {
+      this.setUpAvaliableNumbers(this.difficultyLevel);
+    } else {
+      this.setAvaliableNumbersStorage(this.difficultyLevel, array);
+    }
   }
 
 }
