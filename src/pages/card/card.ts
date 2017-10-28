@@ -17,10 +17,10 @@ export class CardPage {
   private wordObj: Word;
 
   constructor(
-      private navCtrl: NavController,
-      private app: App,
-      private gamesSettingsService: GamesSettingsService
-    ) {
+    private navCtrl: NavController,
+    private app: App,
+    private gamesSettingsService: GamesSettingsService
+  ) {
     this.gamesSettingsService.playGame();
     if (this.gamesSettingsService.seconds) {
       this.seconds = this.gamesSettingsService.seconds;
@@ -44,7 +44,7 @@ export class CardPage {
 
   private countdownTimer() {
     this.gamesSettingsService.seconds = this.gamesSettingsService.seconds - 1;
-    if(this.gamesSettingsService.seconds > 0) {
+    if (this.gamesSettingsService.seconds > 0) {
       this.timer = setTimeout(() => this.countdownTimer(), 1000);
     } else {
       this.gamesSettingsService.seconds = this.gamesSettingsService.defaultTimer;
@@ -54,10 +54,10 @@ export class CardPage {
 
   //Change the current team and then open the Ready page
   private timeOver() {
-    if(this.gamesSettingsService.currentTeam === this.gamesSettingsService.team1Text) {
-      this.gamesSettingsService.currentTeam = this.gamesSettingsService.team2Text;
+    if (this.gamesSettingsService.currentTeam === 0) {
+      this.gamesSettingsService.currentTeam = 1;
     } else {
-      this.gamesSettingsService.currentTeam = this.gamesSettingsService.team1Text;
+      this.gamesSettingsService.currentTeam = 0;
     }
     this.navCtrl.setRoot(ReadyPage);
   }
@@ -67,7 +67,7 @@ export class CardPage {
   }
 
   private skipOrTaboo() {
-    if(this.gamesSettingsService.currentTeam === 0) {
+    if (this.gamesSettingsService.currentTeam === 0) {
       this.gamesSettingsService.team1score -= 1;
     } else {
       this.gamesSettingsService.team2score -= 1;
@@ -76,7 +76,7 @@ export class CardPage {
   }
 
   private correct() {
-    if(this.gamesSettingsService.currentTeam === 0) {
+    if (this.gamesSettingsService.currentTeam === 0) {
       this.gamesSettingsService.team1score += 1;
       this.checkForWinningScore(this.gamesSettingsService.team1score);
     } else {
@@ -87,7 +87,7 @@ export class CardPage {
   }
 
   private checkForWinningScore(currentTeamScore) {
-    if(currentTeamScore === this.gamesSettingsService.winningScore) {
+    if (currentTeamScore === this.gamesSettingsService.winningScore) {
       this.gameWon();
     }
   }
