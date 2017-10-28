@@ -26,6 +26,9 @@ export class GamesSettingsService {
   public defaultTimer = 60;
   public seconds = 0;
 
+  private easyNumbersToPick = [];
+  private hardNumbersToPick = [];
+
   constructor(private storage: Storage) {
     this.team1score = 0;
     this.team2score = 0;
@@ -50,10 +53,22 @@ export class GamesSettingsService {
 
   public getWord() {
     if (this.difficultyLevel === 'easy') {
-      let randomNumber = Math.floor(Math.random() * easyWords.length)
+      if (!this.easyNumbersToPick.length) {
+        this.setUpAvaliableNumbers(easyWords)
+      }
+      let randomNumber = this.easyNumbersToPick[Math.floor(Math.random() * this.easyNumbersToPick.length)];
+      this.findAndRemoveNumberFromArray(this.easyNumbersToPick, randomNumber);
+      console.log("%%%random%%%%", randomNumber)
+      console.log("$$$length$$$", easyWords.length)
       return easyWords[randomNumber];
     } else {
-      let randomNumber = Math.floor(Math.random() * hardWords.length)
+      if (!this.hardNumbersToPick.length) {
+        this.setUpAvaliableNumbers(hardWords)
+      }
+      let randomNumber = this.hardNumbersToPick[Math.floor(Math.random() * this.hardNumbersToPick.length)];
+      this.findAndRemoveNumberFromArray(this.hardNumbersToPick, randomNumber);
+      console.log("%%%random%%%%", randomNumber)
+      console.log("$$$length$$$", hardWords.length)
       return hardWords[randomNumber];
     }
   }
@@ -70,12 +85,69 @@ export class GamesSettingsService {
   //Ask Josh about why he thinks we might need to return a Promise here
   private getSettingsFromStorage(): void {
     this.storage.get('settings').then((data: Settings) => {
-      if(data) {
+      if (data) {
         this.defaultTimer = data.defaultTimer;
         this.winningScore = data.winningScore;
         this.difficultyLevel = data.difficultyLevel;
       }
+    });
+
+    if (this.difficultyLevel === 'easy') {
+      this.getAvaliableNumbers(easyWords);
+    } else {
+      this.getAvaliableNumbers(hardWords)
+    }
+  }
+
+  private getAvaliableNumbers(list) {
+    this.storage.get(this.difficultyLevel + '').then((data: Array<number>) => {
+      if (data && data.length) {
+        if (this.difficultyLevel === 'easy') {
+          this.easyNumbersToPick = data;
+        } else {
+          this.hardNumbersToPick = data;
+        }
+      } else {
+        this.setUpAvaliableNumbers(list);
+      }
     })
+  }
+
+  private setUpAvaliableNumbers(list) {
+    let numbers = [];
+    for (let i = 0; i < list.length; i++) {
+      numbers.push(i);
+    }
+    if (this.difficultyLevel === 'easy') {
+      this.easyNumbersToPick = numbers;
+    } else {
+      this.hardNumbersToPick = numbers;
+    }
+    this.saveAvaliableNumbersStorage(list, numbers);
+  }
+
+  private saveAvaliableNumbersStorage(list, array) {
+    this.storage.set(this.difficultyLevel + '', array).then(data => {
+      if (this.difficultyLevel === 'easy') {
+        this.easyNumbersToPick = array;
+      } else {
+        this.hardNumbersToPick = array;
+      }
+    });
+  }
+
+  private findAndRemoveNumberFromArray(array, number) {
+    array = array.filter(element => element != number);
+
+    if (array.length === 0) {
+      if (this.difficultyLevel === 'easy') {
+        this.setUpAvaliableNumbers(easyWords);
+      } else {
+        this.setUpAvaliableNumbers(hardWords)
+      }
+    } else {
+      this.saveAvaliableNumbersStorage(this.difficultyLevel, array);
+    }
   }
 
 }

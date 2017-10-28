@@ -43,7 +43,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card>
+  <ion-card *ngIf="wordObj">
     <ion-item class="cardHeader">
       <p>{{wordObj.correctWord}}</p>
     </ion-item>

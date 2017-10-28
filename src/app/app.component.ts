@@ -11,31 +11,37 @@ import { TabsPage } from '../pages/tabs/tabs';
 })
 export class MyApp {
   rootPage: any = TabsPage;
+  public result = '';
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private admobFree: AdMobFree) {
+  constructor(
+    private platform: Platform, 
+    private statusBar: StatusBar, 
+    private splashScreen: SplashScreen, 
+    private admobFree: AdMobFree) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      this.admobFree.banner.config(bannerConfig);
+      
+          this.admobFree.banner.prepare()
+            .then((value) => {
+              console.log('ads ready')
+              this.result = value + ' ad is ready'
+              // banner Ad is ready
+              // if we set autoShow to false, then we will need to call the show method here
+            })
+            .catch(e => this.result = e + ' ad error');
     });
 
     const bannerConfig: AdMobFreeBannerConfig = {
       // add your config here
       // for the sake of this example we will just use the test config
-      isTesting: true,
+      isTesting: false,
       autoShow: true,
       id: 'ca-app-pub-5035764387204735/5224848398',
       bannerAtTop: true
     };
-    this.admobFree.banner.config(bannerConfig);
-
-    this.admobFree.banner.prepare()
-      .then(() => {
-        console.log('ads ready')
-        // banner Ad is ready
-        // if we set autoShow to false, then we will need to call the show method here
-      })
-      .catch(e => console.log(e));
+    
   }
 }
