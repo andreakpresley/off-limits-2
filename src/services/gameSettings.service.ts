@@ -53,12 +53,22 @@ export class GamesSettingsService {
 
   public getWord() {
     if (this.difficultyLevel === 'easy') {
-      let randomNumber = Math.floor(Math.random() * this.easyNumbersToPick.length);
+      if (!this.easyNumbersToPick.length) {
+        this.setUpAvaliableNumbers(easyWords)
+      }
+      let randomNumber = this.easyNumbersToPick[Math.floor(Math.random() * this.easyNumbersToPick.length)];
       this.findAndRemoveNumberFromArray(this.easyNumbersToPick, randomNumber);
+      console.log("%%%random%%%%", randomNumber)
+      console.log("$$$length$$$", easyWords.length)
       return easyWords[randomNumber];
     } else {
-      let randomNumber = Math.floor(Math.random() * this.hardNumbersToPick.length);
+      if (!this.hardNumbersToPick.length) {
+        this.setUpAvaliableNumbers(hardWords)
+      }
+      let randomNumber = this.hardNumbersToPick[Math.floor(Math.random() * this.hardNumbersToPick.length)];
       this.findAndRemoveNumberFromArray(this.hardNumbersToPick, randomNumber);
+      console.log("%%%random%%%%", randomNumber)
+      console.log("$$$length$$$", hardWords.length)
       return hardWords[randomNumber];
     }
   }
@@ -82,13 +92,17 @@ export class GamesSettingsService {
       }
     });
 
-    this.getUpAvaliableNumbers(this.difficultyLevel);
+    if (this.difficultyLevel === 'easy') {
+      this.getAvaliableNumbers(easyWords);
+    } else {
+      this.getAvaliableNumbers(hardWords)
+    }
   }
 
-  private getUpAvaliableNumbers(list) {
-    this.storage.get(list + 'Numbers').then((data: Array<number>) => {
-      if (data.length) {
-        if (list === 'easy') {
+  private getAvaliableNumbers(list) {
+    this.storage.get(this.difficultyLevel + '').then((data: Array<number>) => {
+      if (data && data.length) {
+        if (this.difficultyLevel === 'easy') {
           this.easyNumbersToPick = data;
         } else {
           this.hardNumbersToPick = data;
@@ -104,13 +118,17 @@ export class GamesSettingsService {
     for (let i = 0; i < list.length; i++) {
       numbers.push(i);
     }
-    this.setAvaliableNumbersStorage(list, numbers);
+    if (this.difficultyLevel === 'easy') {
+      this.easyNumbersToPick = numbers;
+    } else {
+      this.hardNumbersToPick = numbers;
+    }
+    this.saveAvaliableNumbersStorage(list, numbers);
   }
 
-  private setAvaliableNumbersStorage(list, array) {
-    this.storage.set(list + 'Numbers', array).then(data => {
-      console.log('New numbers list created', data);
-      if (list === 'easy') {
+  private saveAvaliableNumbersStorage(list, array) {
+    this.storage.set(this.difficultyLevel + '', array).then(data => {
+      if (this.difficultyLevel === 'easy') {
         this.easyNumbersToPick = array;
       } else {
         this.hardNumbersToPick = array;
@@ -119,12 +137,16 @@ export class GamesSettingsService {
   }
 
   private findAndRemoveNumberFromArray(array, number) {
-    array.filter(element => element != number);
+    array = array.filter(element => element != number);
 
     if (array.length === 0) {
-      this.setUpAvaliableNumbers(this.difficultyLevel);
+      if (this.difficultyLevel === 'easy') {
+        this.setUpAvaliableNumbers(easyWords);
+      } else {
+        this.setUpAvaliableNumbers(hardWords)
+      }
     } else {
-      this.setAvaliableNumbersStorage(this.difficultyLevel, array);
+      this.saveAvaliableNumbersStorage(this.difficultyLevel, array);
     }
   }
 
